@@ -1,10 +1,47 @@
 <html>
 <head>
+<script type="text/javascript">
+var nombre = "Reinaldo García y Santos";
+console.log(nombre);
+alert(nombre);
+var total = 20;
+function ciclo(hasta){
+	var resultado = 1;
+	var operacion = 0;
+	var ejercicio = "";
+	resultado = (hasta+1)*(hasta/2);
+	console.log(resultado);
+/*for (var i = 1; i <= hasta; i++) {
+
+//if(i = 1){console.log(i); break;};
+	if(i<=1){ operacion=1; } else{ operacion = i + resultado; }
+	resultado = operacion;
+	console.log(i+" = "+resultado);
+
+
+
+
+}*/
+};
+
+function recorrer(){
+
+	var numero = document.getElementById("numero").value;
+	console.log(numero);
+	ciclo(numero);
+}
+
+</script>	
 	<title>Hello, World!</title>
 </head>
 <body>
 
 Hola Mundo, Reinaldo.
+<button name="Hola" text="Click aqui" onclick="ciclo(1000000000000)">Bucle</button>
+<br><br><br><br><br><br>
+<input id="numero" >
+<button onclick="recorrer()">Correr</button>
+
 
 </body>
 </html>
