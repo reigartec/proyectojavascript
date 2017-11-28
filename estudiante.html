@@ -1,0 +1,88 @@
+<html>
+<head>
+   <title>Formulario Estudiante</title>
+
+<script type="text/javascript" src="resources/scripts/estudiante.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="C:/Proyecto_Javascript/resources/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+
+
+
+
+<div class="container">
+ <h2>Formulario Estudiante</h2>
+<!--<form class="form-horizontal">-->
+<div class="form-horizontal">
+  <div class="form-group">
+  <label for="inputID" class="col-sm-2 control-label">ID: </label>
+      <div class="col-sm-10">
+      <input type="text" name="ID" id="ID" class="form-control" value="" placeholder="ID">
+      </div>
+  </div>
+  <div class="form-group">
+  <label for="inputNOMBRE" class="col-sm-2 control-label">NOMBRE: </label>
+    <div class="col-sm-10">
+    <input type="text" name="NOMBRE" id="NOMBRE" class="form-control" value="" placeholder="NOMBRE">
+    </div>
+  </div>
+  <div class="form-group">
+  <label for="inputMATRICULA" class="col-sm-2 control-label">MATRICULA:</label>
+    <div class="col-sm-10">
+    <input type="text" name="MATRICULA" id="MATRICULA" class="form-control" value="" placeholder="MATRICULA">
+    </div>
+  </div>
+  <div class="form-group">
+  <label for="inputIDENTIFICACION" class="col-sm-2 control-label">IDENTIFICACION:</label>
+    <div class="col-sm-10">
+    <input type="text" name="IDENTIFICACION" id="IDENTIFICACION" class="form-control" value="" placeholder="IDENTIFICACION">
+    </div>
+  </div>
+  <div class="form-group">
+  <label for="inputIDENTIFICACION" class="col-sm-2 control-label">TELEFONO: </label>
+    <div class="col-sm-10">  
+    <input type="text" name="TELEFONO" id="TELEFONO" class="form-control" value="" placeholder="TELEFONO">
+    </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEMAIL" class="col-sm-2 control-label">
+  EMAIL:</label>
+    <div class="col-sm-10">    
+    <input type="text" name="EMAIL" id="EMAIL" class="form-control" value="" placeholder="EMAIL">
+    </div>
+  </div>  
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+    <button onclick="agregar();" class="btn btn-default">Add Estudiante</button>
+    </div>
+</div>
+</div>
+<!--</form>-->
+</div>
+<div class="container">
+<table id="estudiantes" class="table table-striped">
+<thead>
+<th>ID</th>
+<th>NOMBRE</th>
+<th>MATRICULA</th>
+<th>IDENTIFICACION</th>
+<th>TELEFONO</th>
+<th>EMAIL</th>
+</thead>
+<tbody id="cuerpo">
+
+</tbody>
+</table>
+
+</div>
+
+
+</body>
+</html>

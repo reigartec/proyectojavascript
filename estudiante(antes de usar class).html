@@ -1,0 +1,79 @@
+<html>
+<head>
+	<title>Formulario Estudiante</title>
+  <script type="text/javascript">
+
+    function enviar()
+    {
+        var id = document.getElementById("ID").value;
+        var nombre = document.getElementById("NOMBRE").value;
+        var matricula = document.getElementById("MATRICULA").value;
+        var ident = document.getElementById("IDENTIFICACION").value;
+        var tel = document.getElementById("TELEFONO").value;
+        var email = document.getElementById("EMAIL").value;
+
+        console.log("ID : "+id+
+                    "\nNOMBRE : "+nombre+
+                    "\nMATRICULA : "+matricula+
+                    "\nIDENTIFICACION : "+ident+
+                    "\nTELEFONO : "+tel+
+                    "\nEMAIL : "+email);
+
+    }
+
+function presentar()
+{
+
+ /*var self=this;
+ self.id;
+ self.nombre;
+ self.matricula;
+self.identificacion;
+self.telefono;
+self.email;*/
+
+        var estud = new estudiantes;
+        estud.id = document.getElementById("ID").value;
+        estud.nombre = document.getElementById("NOMBRE").value;
+        estud.matricula = document.getElementById("MATRICULA").value;
+        estud.ident = document.getElementById("IDENTIFICACION").value;
+        estud.tel = document.getElementById("TELEFONO").value;
+        estud.email = document.getElementById("EMAIL").value;
+
+console.log(estud);
+
+
+}
+
+
+
+  </script>
+</head>
+<body>
+<b>Formulario Estudiante</b>
+<br><br><br>
+<form action="">
+  ID:<br>
+  <input type="text" name="ID" id="ID" value="007">
+  <br>
+  NOMBRE:<br>
+  <input type="text" name="NOMBRE" id="NOMBRE" value="REINALDO GARCIA">
+  <br>
+  MATRICULA:<br>
+  <input type="text" name="MATRICULA" id="MATRICULA" value="2017-3289">
+  <br>
+  IDENTIFICACION:<br>
+  <input type="text" name="IDENTIFICACION" id="IDENTIFICACION" value="04701969448">
+  <br>
+  TELEFONO:<br>
+  <input type="text" name="TELEFONO" id="TELEFONO" value="(809)-573-5317">
+  <br>
+  EMAIL:<br>
+  <input type="text" name="EMAIL" id="EMAIL"value="REINALDO788@GMAIL.COM">
+  <br><br>
+  <input type="button" value="Submit" onclick="presentar()">
+</form> 
+
+</body>
+
+</html>
