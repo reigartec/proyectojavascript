@@ -63,11 +63,11 @@ function eliminarEstudiante()
     //alert(seleccionado[i]);
     //myStorage = window.localStorage;
     window.localStorage.removeItem(seleccionado[i].toString());
-    alert("Han sido eliminados! "+seleccionado[i].toString());
+//    alert("Han sido eliminados! "+seleccionado[i].toString());
     /*window.localStorage.removeItem("540");
     alert("Eliminado el 540");*/
   }
-
+  alert("Han sido eliminados! ");
 
 
   
