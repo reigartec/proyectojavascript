@@ -1,0 +1,95 @@
+<html>
+    <head>
+            <script src="resources/scripts/jquery-3.2.1.min.js"></script>    
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+            <link rel="stylesheet" href="resources/css/style.css">
+            <title>User Infor!</title>
+            
+            
+            <script type="text/javascript">
+            $(document).ready(function() {
+var dbuser;
+var userlist = [];
+var url_string = window.location.href;
+var url = new URL(url_string);
+var id = url.searchParams.get("UserId");
+var cuerpo = "";
+dbuser = localStorage.getItem("users");
+var count = 0;
+        if(dbuser != null){
+        userlist = JSON.parse(dbuser);
+        console.log(userlist);
+
+        }
+/*******************************CONSIGO CUANTOS POST HA REALIZADO ESTE USUARIO*********************************/
+$.ajax({
+          url: 'http://jsonplaceholder.typicode.com/posts?userId='+userlist[id-1].id,
+          method: 'GET',
+          beforeSend: function() {
+    //$("#result").html("<img src=\"resources/images/loadingspinner.gif\" />");
+  }
+        }).done(function(data){
+            $("#result").html("");
+            count = data.length;
+            console.log(count+"   "+url);
+
+        
+        });
+var delayInMilliseconds = 3000; //1 second
+
+setTimeout(function() {
+
+/*******************************CONSIGO CUANTOS POST HA REALIZADO ESTE USUARIO*********************************/
+//console.log(userlist[id-1].name);
+cuerpo="<div class=\"post-container \"><img src=\"./resources/images/userinfo.png\" />"+
+"<p><b>Name :</b> "+userlist[id-1].name+", a.k.a '"+userlist[id-1].username+"'</p>"+
+"<p><b>Email :</b> "+userlist[id-1].email+"</p>"+
+"<p><b>Address :</b> "+userlist[id-1].address.street+","+
+    userlist[id-1].address.suite+
+    "<br>"+userlist[id-1].address.city+", "+userlist[id-1].address.zipcode+"</p>"+    
+    "<p><b>Phone :</b> "+userlist[id-1].phone+"</p>"+    
+    "<p><b>Website :</b> "+userlist[id-1].website+"</p>"+
+    "<p><b>Company :</b> "+userlist[id-1].company.name+"</p>"+
+    "<P><b>Post :</b> This user share <b>"+count+"</b> post!,  <a href=\"Post.html?UserId="+id+"\">click here</a></P>"+
+"</div><br><br>";
+$("#resultado").html(cuerpo);
+  //your code to be executed after 1 second
+}, delayInMilliseconds);
+
+            });
+            </script>
+
+
+
+
+
+        </head>
+        <body>
+
+
+                      
+                <div class="container">
+                        <h2>User information JSonplaceholder Code</h2>
+                        <nav class="navbar navbar-default">
+                                <div class="container-fluid">
+                                  <div class="navbar-header">
+                                    <a class="navbar-brand" href="#">Javascript Project</a>
+                                  </div>
+                                  <ul class="nav navbar-nav">
+                                    <li><a href="Post.html">Post</a></li>
+                                    <li class="active"><a href="user.html">User</a></li>
+                                    
+                                  </ul>
+                                </div>
+                              </nav>                        
+                       <!--<form class="form-horizontal">-->
+                            <!--<img src="resources/images/loadingspinner.gif" />-->
+<div id="resultado"><img src="resources/images/loadingspinner.gif" /></div>
+
+</script>
+                        </div>
+
+                        </body>
+                        </html>

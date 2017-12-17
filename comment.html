@@ -1,0 +1,153 @@
+<html>
+    <head>
+            <script src="resources/scripts/jquery-3.2.1.min.js"></script>    
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+            <link rel="stylesheet" href="resources/css/style.css">
+            <script src="resources/scripts/functions.js"></script> 
+            <title>Post comments!</title>
+            <script type="text/javascript">
+            var localStorage = window.localStorage;
+            var url_string = window.location.href;
+var url = new URL(url_string);
+var id = url.searchParams.get("PostId");
+var root = 'http://jsonplaceholder.typicode.com';
+var cuerpo = "";
+var postt = "";
+  var title = "";
+  var email = "";
+  var cuerpo = "";          
+/*************************INICIO OBTENCION DE USUARIO***********************************/
+var dbuser;
+var userlist = [];
+dbuser = localStorage.getItem("users");
+
+if(dbuser != null){
+userlist = JSON.parse(dbuser);
+console.log(userlist);
+
+}else{
+$.ajax({
+url: 'http://jsonplaceholder.typicode.com/users',
+method: 'GET'
+}).then(function(data){
+//estudiantes.push(estu);
+localStorage.setItem("users", JSON.stringify(data));
+userlist = data;
+console.log(data);
+console.log("se esta ejecuto el ajax");
+/*var i = 1;
+
+$.each(data, function(i, d){
+
+});*/
+});
+}
+
+/*************************FINALIZO OBTENCION DE USUARIO***********************************/
+$(document).ready(function() {
+$.ajax({
+  url: root + '/posts/' + id,
+  method: 'GET'
+}).then(function(data) {
+  console.log(data);
+var  email = userlist[data.userId-1].email;
+//var existe = agregarPostFavorito(data.id);
+//console.log(existe);
+
+var postFavorito = {};
+var dbpostFavoritos = localStorage.getItem('postFavorito');
+
+  if(dbpostFavoritos != null)
+  {
+    postFavorito = JSON.parse(dbpostFavoritos);
+  }  
+var existe = false;
+var idp = data.id;
+console.log(idp);
+    if (idp in postFavorito){
+      existe = true;
+    }else{
+      //existe = true;
+    }
+    console.log(existe);
+
+  cuerpo =                                       
+"<div class=\"post-container alejar\">"+//img-rounded
+"<div class=\"post-superior\">"+
+"<div class=\"imagen-post-izquierdo\">"+
+  "<img class=\"favorite-img "+(existe ? 'favoriteselected' : 'favorite-img')+" \"  src=\"./resources/images/favorite_empty.png\" />"+
+  "</div>"+
+"<div class=\"titulo\">"+data.title+"</div>"+
+//"<div class=\"imagen-post-derecho\">"+
+  //"<img src=\"./resources/images/popops.png\" />"+
+//"</div>"+
+"</div>"+
+"<div class=\"post-interior\">"+
+data.body +
+"</div>"+
+"<div class=\"post-inferior\">"+
+"<span class=\"post-email\"><a href=\"mailto:"+email+"\">"+email+"</a></span>"+
+"</div>"+
+"</div>";
+  $("#resultado").append(cuerpo);
+  llenarcomentarios(id);
+
+});
+
+
+
+});
+
+function llenarcomentarios(id){
+var root = "http://jsonplaceholder.typicode.com/posts/"+id+"/comments";
+$.ajax({
+  url:root,
+  method: 'GET'
+}).then(function(data){
+  var i = 1;
+  $.each(data, function(i, v){
+              i++;
+              postt = v.body;
+              title = v.name;
+              email = v.email;
+              
+  cuerpo = "<div class=\"post-container ochentapor\"><p><img src=\"./resources/images/user.png\" />"
+  +postt+"</p><p>"+title+"</p><p><a href=\"\"mailto:"+email+">"+email+"</a></p></div>";
+  $("#resultado").append(cuerpo);
+  
+  console.log(root+data);
+  });
+});
+}
+console.log(id);
+
+
+            </script>
+        </head>
+        <body>
+
+                      
+                <div class="container">
+                  
+
+                        <h2>Comments JSonplaceholder Code</h2>
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                              <div class="navbar-header">
+                                <a class="navbar-brand" href="#">Javascript Project</a>
+                              </div>
+                              <ul class="nav navbar-nav">
+                                <li class="active"><a href="Post.html">Post</a></li>
+                                <li ><a href="user.html">User</a></li>
+                                
+                              </ul>
+                            </div>
+                          </nav>
+                       <!--<form class="form-horizontal">-->
+<div id="resultado"></div>
+                        </div>
+
+                        </body>
+                        </html>

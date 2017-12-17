@@ -1,0 +1,216 @@
+<html>
+        <head>
+            <script src="resources/scripts/jquery-3.2.1.min.js"></script>    
+               <meta charset="utf-8">
+               <meta name="viewport" content="width=device-width, initial-scale=1">
+               <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+               <link rel="stylesheet" href="resources/css/style.css">
+               <title>Post List!</title>
+               <script src="resources/scripts/functions.js"></script> 
+        <script type="text/javascript">
+        var root = 'http://jsonplaceholder.typicode.com';
+
+        $(document).ready(function() {
+
+  var postt = "";
+  var title = "";
+  var id_user = "";
+  var id_post = "";
+  var cuerpo = "";
+  var email = "";
+
+
+
+
+
+
+  var localStorage = window.localStorage;
+          var postFavorito = {};
+          var dbpostFavoritos = localStorage.getItem('postFavorito');
+
+          if(dbpostFavoritos != null)
+          {
+            postFavorito = JSON.parse(dbpostFavoritos);
+          }          
+/*************************INICIO OBTENCION DE USUARIO***********************************/
+          var dbuser;
+          var userlist = [];
+      dbuser = localStorage.getItem("users");
+  
+    if(dbuser != null){
+      userlist = JSON.parse(dbuser);
+      console.log(userlist);
+
+    }else{
+        $.ajax({
+          url: 'http://jsonplaceholder.typicode.com/users',
+          method: 'GET'
+        }).then(function(data){
+          //estudiantes.push(estu);
+  localStorage.setItem("users", JSON.stringify(data));
+          userlist = data;
+          console.log(data);
+          console.log("se esta ejecuto el ajax");
+          /*var i = 1;
+
+          $.each(data, function(i, d){
+
+          });*/
+        });
+    }
+ 
+/*************************FINALIZO OBTENCION DE USUARIO***********************************/
+/*******************************ver usuario post******************************/
+
+var url_string = window.location.href;
+var url = new URL(url_string);
+var id = "";
+id = url.searchParams.get("UserId");
+if(id != null)
+{
+  root = root + '/posts?userId=' + id;
+  }
+  else {
+    root = root + '/posts/';
+  }
+console.log(root+"  "+id);
+/*******************************ver usuario post******************************/
+
+          //alert("prueba");
+          $.ajax({
+          url: root,
+          method: 'GET'
+        }).then(function(data) {
+          console.log(data);
+          //var post = JSON.parse(data);
+       //   for(var i in data){
+
+        var i = 1;
+          $.each(data, function(i, v){
+              i++;
+              postt = v.body;
+              title = v.title;
+              userId = v.userId;
+              id_post = v.id;
+              var existe = id_post in postFavorito;
+            //cuerpo = cuerpo +"<div>"+"<b>"+i+" - </b><b>"+title+"</b><br>"+ postt + "</div>";
+
+email = userlist[userId-1].email;
+            cuerpo = cuerpo +                                      
+"<div class=\"post-container \">"+//img-rounded
+"<div class=\"post-superior\">"+
+"<div class=\"imagen-post-izquierdo\">"+
+  "<img class=\" post-boton "+(existe ? 'favoriteselected' : 'favorite-img')+" \" src=\"./resources/images/favorite_empty.png\" data-postid=\""+id_post+"\" />"+
+  "</div>"+
+"<div class=\"titulo\"><a href=\"comment.html?PostId="+id_post+"\">"+title+"</a></div>"+
+//"<div class=\"imagen-post-derecho\">"+
+  //"<img src=\"./resources/images/popops.png\" />"+
+//"</div>"+
+"</div>"+
+"<div class=\"post-interior\">"+
+postt +
+"</div>"+
+"<div class=\"post-inferior\">"+
+  "<span class=\"post-email\"><a href=\"mailto:"+email+"\">"+email+"</a></span>"+
+"</div>"+
+"</div>";
+
+
+
+//console.log(userlist[2].email);
+//console.log(userlist[userId].email);
+
+     });
+
+     //$("#resultado").html(cuerpo); //el html y el append funcionan de la misma forma!
+     $("#resultado").append(cuerpo);
+     $(".post-boton").click(function(){
+        //alert("Hola"+$(this).data("postid"));//
+        var postId = $(this).data("postid");
+        var existe = agregarPostFavorito(postId);
+//$(this).removeClass(existe ? 'favorite-img' : 'favoriteselected');
+//$(this).addClass(existe ? 'favoriteselected' : 'favorite-img'); 
+
+        if(existe){
+          $(this).removeClass('favorite-img');
+          $(this).addClass('favoriteselected');
+        }
+        else{
+          $(this).addClass('favorite-img'); 
+          $(this).removeClass('favoriteselected');
+        }
+      });
+
+
+
+
+        });
+        
+        
+        });
+
+        ///aqui iba la funcion de favoritos
+        
+        
+        </script>
+        </head>
+        <body>
+          <style type="text/css">
+          
+            </style> 
+          
+                <div class="container">
+                        <h2>Post JSonplaceholder Code</h2>
+                       <!--<form class="form-horizontal">-->
+
+                          <nav class="navbar navbar-default">
+                              <div class="container-fluid">
+                                <div class="navbar-header">
+                                  <a class="navbar-brand" href="#">Javascript Project</a>
+                                </div>
+                                <ul class="nav navbar-nav">
+                                  <li class="active"><a href="Post.html">Post</a></li>
+                                  <li><a href="user.html">User</a></li>
+                                  
+                                </ul>
+                              </div>
+                            </nav>
+<!--principal-->                        
+<!--<div class="post-container ">
+<div class="post-superior">
+<div class="imagen-post-izquierdo">
+  <img class="favorite-img" src="./resources/images/favorite_empty.png" />
+  </div>
+<div class="titulo">El gran titulo del post!!!</div>
+<div class="imagen-post-derecho">
+  <img src="./resources/images/popops.png" />
+</div>
+</div>
+<div class="post-interior">
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. 
+  Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. 
+  Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+</div>
+<div class="post-inferior">
+<span class="post-email"><a href="mailto:Reinaldo788@gmail.com">Reinaldo788@gmail.com</a></span>
+</div>
+</div>-->
+<!--principal-->
+
+
+<br>
+<br>
+
+                         <div id="resultado">
+                                
+                         </div>
+                         
+                         </div>
+                         
+                         
+            
+        
+        
+        </body>
+        
+        </html>

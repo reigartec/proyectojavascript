@@ -1,0 +1,71 @@
+<html>
+    <head>
+            <script src="resources/scripts/jquery-3.2.1.min.js"></script>    
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+            <link rel="stylesheet" href="resources/css/style.css">
+            <title>User list!</title>
+            <script type="text/javascript">
+            $(document).ready(function() {
+/*************************INICIO OBTENCION DE USUARIO***********************************/
+  var dbuser;
+  var userlist = [];
+  dbuser = localStorage.getItem("users");
+  
+        if(dbuser != null){
+        userlist = JSON.parse(dbuser);
+        console.log(userlist);
+
+        }else{
+        $.ajax({
+          url: 'http://jsonplaceholder.typicode.com/users',
+          method: 'GET'
+        }).then(function(data){
+        
+        localStorage.setItem("users", JSON.stringify(data));
+          userlist = data;
+        
+        });
+    }
+ 
+/*************************FINALIZO OBTENCION DE USUARIO***********************************/
+/*************************INICIO IMPRIMIR LOS USUARIOS***********************************/
+var i = 1;
+var cuerpo="";
+          $.each(userlist, function(i, d){
+                console.log(d.company.name);
+                cuerpo="<div class=\"post-container \">"+"<p><a href=\"Userinfo.html?UserId="+d.id+"\"><img src=\"./resources/images/user.png\" />"+
+                ""+d.name+"</a><br><a href=\"mailto:"+d.email+"\">"+d.email+"</a><br></p></div><br><br>";
+                $("#resultado").append(cuerpo);
+          });
+
+/*************************FINALIZO IMPRIMIR LOS USUARIOS***********************************/
+
+            });
+            </script>
+        </head>
+        <body>
+
+
+                      
+                <div class="container">
+                        <h2>User JSonplaceholder Code</h2>
+                       <!--<form class="form-horizontal">-->
+                                <nav class="navbar navbar-default">
+                                                <div class="container-fluid">
+                                                  <div class="navbar-header">
+                                                    <a class="navbar-brand" href="#">Javascript Project</a>
+                                                  </div>
+                                                  <ul class="nav navbar-nav">
+                                                    <li><a href="Post.html">Post</a></li>
+                                                    <li class="active"><a href="user.html">User</a></li>
+                                                    
+                                                  </ul>
+                                                </div>
+                                              </nav>
+<div id="resultado"></div>
+                        </div>
+
+                        </body>
+                        </html>
